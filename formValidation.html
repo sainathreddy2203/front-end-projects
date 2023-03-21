@@ -1,0 +1,142 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name = "viewport", content ="width=device-width, initial-scaling = 1.0">
+        <title>Form Validation</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+        <style>
+            body{
+                font-family: verdana;
+                font-size:130%;
+                background-color: #EFF5F5;
+            }
+            .wrapper{
+                width:600px;
+                margin:0 auto;
+            }
+            label{
+                width:200px;
+                float:left;
+                position: relative;
+                top:8px;
+            }
+            input{
+                border: 2px solid #D6E4E5;
+                font-size: large;
+                padding:5px;
+                border-radius: 5px;
+                width: 350px;
+            }
+            .formelement{
+                margin-top:10px;
+            }
+            #submitButton{
+                width:150px;
+                margin-left: 200px;
+                margin-top: 10px;
+                background-color: #66347F;
+                color: #EEEEEE;
+            }
+            #success{
+                color:#439A97;
+                font-family: sans-serif;
+                text-align: center;
+                margin-top: 10px;
+            }
+            #errors{
+                color:#EB455F;
+                font-family: monospace;
+                text-align: center;
+                margin-top: 10px;
+            }
+            .title{
+                text-align: center;
+                position: relative;
+                margin-bottom: 25px;
+                font-size: 25px;
+                font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                color: #7F5283;
+                border: 2px solid #CFD2CF;
+                border-radius: 6px;
+            }
+            .main{
+                text-align: center;
+                font-size: 30px;
+                font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+                font-weight: bold;
+                color: #144272;
+                margin-bottom: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main">FORM VALIDATION PROJECT</div>
+        <div class="title">New User? Sign Up!</div>
+        <div class="wrapper">
+            <div class="formelement">
+                <label for="Email">Email</label>
+                <input type="text" name="Email" id="email">
+            </div>
+            <div class="formelement">
+                <label for="Phoneno">Phone No</label>
+                <input type="text" name="Phoneno" id="phoneno">
+            </div>
+            <div class="formelement">
+                <label for="Password">Password</label>
+                <input type="password" name="Password" id="password">
+            </div>
+            <div class="formelement">
+                <label for="Confirm Password">Confirm Password</label>
+                <input type="password" name="Confirm Password" id="confirmpassword">
+            </div>
+            <input id="submitButton" type="Submit">
+        </div>
+        <div id="success"></div>
+        <div id="errors"></div>
+        <script>
+            var errorMessage="";
+            var missingField="";
+            function isEmail(email){
+                var regex = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                return regex.test(email);
+            }
+            $("#submitButton").click(function(){
+                if($("#email").val()==""){
+                    missingField += "<p>Email is Empty</p>";
+                    $("#email").css("border-color", "red");
+                }
+                if($("#phoneno").val()==""){
+                    missingField += "<p>Phone No is Empty</p>";
+                    $("#phoneno").css("border-color", "red");
+                }
+                if($("#password").val()==""){
+                    missingField += "<p>Password is Empty</p>";
+                    $("#password").css("border-color", "red");
+                }
+                if($("#confirmpassword").val()==""){
+                    missingField += "<p>Confirm Password is Empty</p>";
+                    $("#confirmpassword").css("border-color", "red");
+                }
+                if(isEmail($("#email").val())==false){
+                    errorMessage += "<p>Invalid Email</p>";
+                    $("#email").css("border-color", "red");
+                }
+                if($.isNumeric($("#phoneno").val())==false){
+                    errorMessage += "<p>Invalid Phone No</p>";
+                    $("#phoneno").css("border-color", "red");
+                }
+                if($("#password").val()!=$("#confirmpassword").val()){
+                    errorMessage += "<p>Passwords Do not match</p>";
+                    $("#password").css("border-color", "red");
+                    $("#confirmpassword").css("border-color", "red");
+                }
+                if(errorMessage==""){
+                    $("#success").html("Successfully Registered!");
+                }else{
+                    $("#errors").html(errorMessage + missingField);
+                }
+            });
+            
+        </script>
+    </body>
+</html>
